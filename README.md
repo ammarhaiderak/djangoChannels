@@ -44,5 +44,5 @@ e.g. **gunicorn project.wsgi:application --bind 0.0.0.0:8000**
 
 
   
-please feel free reach out in case of any issues. 
+please feel free reach out in case of any issues / questions. 
 ammarkhaliq@gmail.com
