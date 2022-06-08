@@ -2,8 +2,10 @@
 production configuration for django channels, wss, daphne, nginx
 
 
-There is not much straight forward solution on how to use **wss** websockets. Everything would work on simple **ws** but you would get connection failed when trying to use same websockets over https. So following is how I managed to use wss.
+There are not many straight forward solutions out there on how to properly use **wss** websockets. 
+Everything would work on simple **ws** but you might be getting "connection failed" when trying to use same websockets over https. 
 
+So here is how I managed to use wss.
 
 1. Use gunicorn for http requests i.e. use gunicorn to serve wsgi.
 e.g. **gunicorn project.wsgi:application --bind 0.0.0.0:8000**
@@ -42,5 +44,5 @@ e.g. **gunicorn project.wsgi:application --bind 0.0.0.0:8000**
 
 
   
-please feel reach out in case of any issues. 
+please feel free reach out in case of any issues. 
 ammarkhaliq@gmail.com
