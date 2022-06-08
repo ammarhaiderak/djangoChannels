@@ -1,5 +1,4 @@
-# Django Channels with Daphne and Nginx for production environment
-production configuration for django channels, wss, daphne, nginx
+# Production Env Configurations for Django Channels with Daphne, gunicorn and Nginx
 
 
 There are not many straight forward solutions out there on how to properly use **wss** websockets. 
@@ -8,13 +7,14 @@ Everything would work on simple **ws** but you might be getting "connection fail
 So here is how I managed to use wss.
 
 1. Use gunicorn for http requests i.e. use gunicorn to serve wsgi.
-e.g. **gunicorn project.wsgi:application --bind 0.0.0.0:8000**
+e.g. ```gunicorn yourproject.wsgi:application --bind 0.0.0.0:8000```
 
 2. Use daphne for websockets i.e use daphne to serve asgi. I am using letsencrypt certificates, you can use certbot for that.
-    i) you need to make sure you install the Twisted http2 and tls extras  => pip install -U 'Twisted[tls,http2]'
+    i) you need to make sure you install the Twisted http2 and tls extras  => 
+    ```pip install -U 'Twisted[tls,http2]'```
    
     command: 
-   sudo path_to_your_project_dir/venv/bin/python path_to_your_project_dir/venv/bin/daphne -e  ssl:**8001**:privateKey=/etc/letsencrypt/live/**yourwebsite.com**/privkey.pem:certKey=/etc/letsencrypt/live/**yourwebsite.com**/fullchain.pem yourproject.asgi:application
+   ```sudo path_to_your_project_dir/venv/bin/python path_to_your_project_dir/venv/bin/daphne -e  ssl:8001:privateKey=/etc/letsencrypt/live/yourwebsite.com/privkey.pem:certKey=/etc/letsencrypt/live/yourwebsite.com/fullchain.pem yourproject.asgi:application```
 
   ps: you may use unixsockets for this
   
@@ -22,7 +22,8 @@ e.g. **gunicorn project.wsgi:application --bind 0.0.0.0:8000**
    command: sudo nano /etc/nginx/sites-enabled/<default or yourwebsite.com>
    use reverse proxy for webscocket endpoint
    update your server part like this: 
-   server {
+   ```
+    server {
      ...
      location /ws/ {
           proxy_http_version 1.1;
@@ -37,6 +38,7 @@ e.g. **gunicorn project.wsgi:application --bind 0.0.0.0:8000**
      } 
      ...
    }
+   ```
 4. connection at frontend
   const socketUrl = `wss://yourwebsite.com:8001/ws/notify/${notifyToken}/`;
   console.log('going to connect to socket')
