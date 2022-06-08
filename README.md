@@ -39,10 +39,12 @@ e.g. ```gunicorn yourproject.wsgi:application --bind 0.0.0.0:8000```
      ...
    }
    ```
-4. connection at frontend
+4. connection at frontend:
+  ```js
   const socketUrl = `wss://yourwebsite.com:8001/ws/notify/${notifyToken}/`;
   console.log('going to connect to socket')
   const socket = new WebSocket(socketUrl);
+  ```
 
 
   
