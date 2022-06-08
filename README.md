@@ -6,20 +6,20 @@ Everything would work on simple **ws** but you might be getting "connection fail
 
 So here is how I managed to use wss.
 
-1. Use gunicorn for http requests i.e. use gunicorn to serve wsgi.
+1. Use gunicorn for http requests i.e. use gunicorn to serve wsgi. <br />
 e.g. ```gunicorn yourproject.wsgi:application --bind 0.0.0.0:8000```
 
-2. Use daphne for websockets i.e use daphne to serve asgi. I am using letsencrypt certificates, you can use certbot for that.
-    i) you need to make sure you install the Twisted http2 and tls extras  => 
+2. Use daphne for websockets i.e use daphne to serve asgi. I am using letsencrypt certificates, you can use certbot for that. <br />
+    i) you need to make sure you install the Twisted http2 and tls extras: <br />
     ```pip install -U 'Twisted[tls,http2]'```
    
-    command: 
+    command: <br />
    ```sudo path_to_your_project_dir/venv/bin/python path_to_your_project_dir/venv/bin/daphne -e  ssl:8001:privateKey=/etc/letsencrypt/live/yourwebsite.com/privkey.pem:certKey=/etc/letsencrypt/live/yourwebsite.com/fullchain.pem yourproject.asgi:application```
 
   ps: you may use unixsockets for this
   
-3. nginx config
-   command: sudo nano /etc/nginx/sites-enabled/<default or yourwebsite.com>
+3. nginx config <br />
+   command: <ins> sudo nano /etc/nginx/sites-enabled/default or yourwebsite.com </ins>
    use reverse proxy for webscocket endpoint
    update your server part like this: 
    ```
@@ -48,5 +48,5 @@ e.g. ```gunicorn yourproject.wsgi:application --bind 0.0.0.0:8000```
 
 
   
-please feel free reach out in case of any issues / questions. 
+please feel free reach out in case of any issues / questions. <br />
 ammarkhaliq@gmail.com
